@@ -24,15 +24,14 @@ These parameters are then injected to the plugin from the platform.
 ## Sample input data
 ```
 {
-        recipients: [
-            {
-                'address': {
-                    'email': 'akzdinglasan@gmail.com',
-                    'name': 'Achilles Dinglasan'
-                }
+    recipients: [
+        {
+            'address': {
+                'email': 'akzdinglasan@gmail.com',
+                'name': 'Achilles Dinglasan'
             }
-        ],
-        template_id: 'my-first-email'
-    }
+        }
+    ],
+    template_id: 'my-first-email'
 }
 ```
