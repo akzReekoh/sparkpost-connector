@@ -1,0 +1,20 @@
+{
+  "api_key": {
+	"label": "API Key",
+	"type": "Password",
+	"required": true,
+	"help": "Please provide your SparkPost API Key."
+  },
+  "default_template_id": {
+	"label": "Default Template ID",
+	"type": "String",
+	"required": true,
+	"help": "Please provide default template ID to use."
+  },
+  "default_recipients": {
+    "label": "Default Recipients",
+    "type": "JSON",
+    "required": true,
+    "help": "Please provide default recipients."
+  }
+}
