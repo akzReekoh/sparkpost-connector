@@ -3,35 +3,46 @@
 var platform = require('./platform'),
     isEmpty = require('lodash.isempty'),
     isPlainObject = require('lodash.isplainobject'),
+    isArray = require('lodash.isarray'),
+    async = require('async'),
     config,
     sparkPostClient;
 
+let sendData = (data) => {
+    if(isEmpty(data.template_id))
+        data.template_id = config.default_template_id;
+
+    if(isEmpty(data.recipients))
+        data.recipients = config.default_recipients;
+
+    sparkPostClient.sendMail({
+        content : {template_id: data.template_id},
+        recipients : data.recipients
+    }, function(error, info){
+        if(error){
+            console.error(error);
+            platform.handleException(error);
+        }
+        else{
+            platform.log(JSON.stringify({
+                title: 'SparkPost Email sent.',
+                data: data
+            }));
+        }
+    });
+};
+
 platform.on('data', function (data) {
     if(isPlainObject(data)){
-        if(isEmpty(data.template_id))
-            data.template_id = config.default_template_id;
-
-        if(isEmpty(data.recipients))
-            data.recipients = config.default_recipients;
-
-        sparkPostClient.sendMail({
-            content : {template_id: data.template_id},
-            recipients : data.recipients
-        }, function(error, info){
-            if(error){
-                console.error(error);
-                platform.handleException(error);
-            }
-            else{
-                platform.log(JSON.stringify({
-                    title: 'SparkPost Email sent.',
-                    data: data
-                }));
-            }
+        sendData(data);
+    }
+    else if(isArray(data)){
+        async.each(data, (datum) => {
+            sendData(datum);
         });
     }
     else
-        platform.handleException(new Error('Invalid data received. Must be a valid JSON Object. Data ' + data));
+        platform.handleException(new Error('Invalid data received. Must be a valid Array/JSON Object. Data ' + data));
 });
 
 platform.once('close', function () {
