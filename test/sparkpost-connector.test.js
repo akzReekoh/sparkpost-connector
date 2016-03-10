@@ -11,6 +11,7 @@ describe('Connector', function () {
 
 	after('terminate child process', function (done) {
         this.timeout(7000);
+
         setTimeout(function(){
             connector.kill('SIGKILL');
             done();
@@ -55,7 +56,7 @@ describe('Connector', function () {
 	});
 
 	describe('#data', function () {
-		it('should process the data', function (done) {
+		it('should process the JSON data', function (done) {
             connector.send({
                 type: 'data',
                 data: {
@@ -70,6 +71,38 @@ describe('Connector', function () {
                     template_id: 'my-first-email'
                 }
             }, done);
+		});
+	});
+
+	describe('#data', function () {
+		it('should process the Array data', function (done) {
+			connector.send({
+				type: 'data',
+				data:[
+					{
+						recipients: [
+							{
+								'address': {
+									'email': 'akzdinglasan@gmail.com',
+									'name': 'Achilles Dinglasan'
+								}
+							}
+						],
+						template_id: 'my-first-email'
+					},
+					{
+						recipients: [
+							{
+								'address': {
+									'email': 'akzdinglasan@gmail.com',
+									'name': 'Achilles Dinglasan'
+								}
+							}
+						],
+						template_id: 'my-first-email'
+					}
+				]
+			}, done);
 		});
 	});
 });
