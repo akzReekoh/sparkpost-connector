@@ -8,7 +8,7 @@ var platform = require('./platform'),
     config,
     sparkPostClient;
 
-let sendData = (data) => {
+let sendData = (data, callback) => {
     if(isEmpty(data.template_id))
         data.template_id = config.default_template_id;
 
@@ -19,26 +19,34 @@ let sendData = (data) => {
         content : {template_id: data.template_id},
         recipients : data.recipients
     }, function(error, info){
-        if(error){
-            console.error(error);
-            platform.handleException(error);
-        }
-        else{
+        if(!error){
             platform.log(JSON.stringify({
                 title: 'SparkPost Email sent.',
                 data: data
             }));
         }
+
+        callback(error);
     });
 };
 
 platform.on('data', function (data) {
     if(isPlainObject(data)){
-        sendData(data);
+        sendData(data, (error) => {
+            if(error) {
+                console.error(error);
+                platform.handleException(error);
+            }
+        });
     }
     else if(isArray(data)){
-        async.each(data, (datum) => {
-            sendData(datum);
+        async.each(data, (datum, done) => {
+            sendData(datum, done);
+        }, (error) => {
+            if(error) {
+                console.error(error);
+                platform.handleException(error);
+            }
         });
     }
     else
