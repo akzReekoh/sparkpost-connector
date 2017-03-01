@@ -1,11 +1,11 @@
 {
   "name": "sparkpost-connector",
   "description": "SparkPost Connector Plugin for the Reekoh IoT Platform.",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "author": "Reekoh, Inc.",
   "main": "app.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp lint"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,8 @@
     "lodash.isempty": "^4.2.1",
     "lodash.isplainobject": "^4.0.4",
     "nodemailer": "^2.0.0",
-    "nodemailer-sparkpost-transport": "^0.1.0"
+    "nodemailer-sparkpost-transport": "^0.1.0",
+    "reekoh": "^1.0.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -26,6 +27,7 @@
     "gulp-json-lint": "^0.1.0",
     "gulp-mocha": "^2.2.0",
     "gulp-plumber": "^1.1.0",
+    "gulp-standard": "^8.0.4",
     "jshint": "^2.9.1",
     "mocha": "^2.4.5"
   },

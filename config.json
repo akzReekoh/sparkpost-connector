@@ -1,17 +1,19 @@
 {
-  "api_key": {
+  "apiKey": {
 	"label": "API Key",
 	"type": "Password",
 	"required": true,
-	"help": "Please provide your SparkPost API Key."
+	"help": "Please provide your SparkPost API Key.",
+    "maxLength": 100
   },
-  "default_template_id": {
+  "defaultTemplateId": {
 	"label": "Default Template ID",
 	"type": "String",
 	"required": true,
-	"help": "Please provide default template ID to use."
+	"help": "Please provide default template ID to use.",
+    "maxLength": 50
   },
-  "default_recipients": {
+  "defaultRecipients": {
     "label": "Default Recipients",
     "type": "JSON",
     "required": true,
