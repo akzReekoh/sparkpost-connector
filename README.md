@@ -32,6 +32,6 @@ These parameters are then injected to the plugin from the platform.
             }
         }
     ],
-    template_id: 'my-first-email'
+    templateId: 'my-first-email'
 }
 ```
